@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text to Video Generation</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      h3.sub-heading {
+        text-align: center;
+        color: #3f51b5;
+        font-weight: 700;
+        margin: 0 0 32px 0;
+      }
+      h5 {
+        margin-bottom: 20px;
+      }
+      .card-panel {
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 1024px;
+      }
+      .hidden {
+        display: none;
+      }
+      .fab-back,
+      .fab-back:hover {
+        background-color: #f44336;
+        color: white;
+        cursor: pointer;
+      }
+      .company-option img {
+        height: 20px;
+        width: 20px;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      .btn.waves-effect.waves-light {
+        margin-top: 16px;
+      }
+      .dashboard-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 14px;
+        color: #555;
+        z-index: 1000;
+      }
+
+      .dashboard-footer span {
+        margin-right: 8px;
+      }
+
+      .powered-logo {
+        margin-right: 12px;
+        height: 20px;
+        vertical-align: middle;
+      }
+      .template-preview-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .template-preview {
+        cursor: pointer;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .template-preview:hover {
+        transform: scale(1.1);
+      }
+
+      .template-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .template-preview span {
+        display: block;
+        margin-top: 8px;
+        font-weight: bold;
+        color: #555;
+      }
+      .selected {
+        border: 2px solid #4caf50; /* Green color for selected template */
+        box-shadow: 0 4px 8px rgba(0, 128, 0, 0.3); /* Green shadow effect */
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #6200ea;
+        color: #fff;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: fade-in 0.5s ease-in-out;
+        display: none;
+      }
+
+      .notification .material-icons {
+        font-size: 24px;
+      }
+
+      /* Fade-in animation */
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Video overlay */
+      .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s, visibility 0.5s;
+      }
+
+      .video-overlay.active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* Video container */
+      .video-container {
+        position: relative;
+        width: 328px;
+        height: 580px;
+        max-width: 100%;
+        max-height: 100%;
+        background: #000;
+        padding-bottom: 0;
+        border-radius: 8px;
+      }
+
+      .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* Close button */
+      .close-button {
+        position: absolute;
+        top: 24px;
+        right: 16px;
+        background-color: #414141;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 33px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .close-button .material-icons {
+        font-size: 20px;
+      }
+
+      .close-button:hover {
+        cursor: pointer;
+        background-color: #616161;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Infoedge Hackathon 2024</h1>
+
+    <div class="card-panel">
+      <h3 class="sub-heading">Text to Video Generation</h3>
+
+      <div id="main-menu">
+        <h5 class="main-menu-heading">How do you want to create a video?</h5>
+        <div>
+          <button
+            id="template-option"
+            class="btn-large waves-effect waves-light"
+          >
+            Template-Based Approach
+          </button>
+          <button
+            id="no-template-option"
+            class="btn-large waves-effect waves-light red lighten-1"
+          >
+            No Template
+          </button>
+        </div>
+      </div>
+
+      <div id="template-approach" class="hidden">
+        <button class="btn-floating fab-back material-icons">arrow_back</button>
+
+        <h5>Select Topic</h5>
+        <select id="topic-dropdown" class="browser-default">
+          <option value="" disabled selected>Select a option</option>
+          <option value="branding">Company Branding Video</option>
+        </select>
+
+        <div id="company-selection" class="hidden">
+          <h5>Select Company</h5>
+          <select id="company-dropdown" class="browser-default"></select>
+        </div>
+
+        <div id="template-selection" class="hidden">
+          <h5>Select Template</h5>
+          <div class="template-preview-container">
+            <div class="template-preview" id="template1">
+              <img
+                src="assets/template1.png"
+                alt="Template 1"
+                class="template-image"
+              />
+              <span>Template 1</span>
+            </div>
+            <div class="template-preview" id="template2">
+              <img
+                src="assets/template2.png"
+                alt="Template 2"
+                class="template-image"
+              />
+              <span>Template 2</span>
+            </div>
+            <div class="template-preview" id="template3">
+              <img
+                src="assets/template3.png"
+                alt="Template 3"
+                class="template-image"
+              />
+              <span>Template 3</span>
+            </div>
+            <div class="template-preview" id="template4">
+              <img
+                src="assets/template4.png"
+                alt="Template 4"
+                class="template-image"
+              />
+              <span>Template 4</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="generate-template-video"
+          class="btn waves-effect waves-light"
+        >
+          Generate Video
+        </button>
+      </div>
+
+      <div id="no-template-approach" class="hidden">
+        <button class="btn-floating fab-back material-icons">arrow_back</button>
+        <h5>Enter Topic for the Video</h5>
+        <div class="input-field">
+          <input id="video-topic" type="text" />
+          <label for="video-topic">Topic</label>
+        </div>
+        <button id="generate-custom-video" class="btn waves-effect waves-light">
+          Generate Video
+        </button>
+      </div>
+    </div>
+
+    <div class="dashboard-footer">
+      <span>Helping hands</span>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+        alt="ChatGPT Logo"
+        class="powered-logo"
+      />
+      <img
+        src="assets/google-cloud-icon-2048x1646-7admxejz.png"
+        alt="Google Cloud Platform Logo"
+        class="powered-logo"
+      />
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+      <span class="material-icons">info</span>
+      Creating video...
+    </div>
+
+    <!-- Video Overlay -->
+    <div id="videoOverlay" class="video-overlay">
+      <div class="video-container">
+        <video id="video" controls width="1080" height="1920">
+          <source id="videoSource" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <button class="close-button" id="closeButton">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

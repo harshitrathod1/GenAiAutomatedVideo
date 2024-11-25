@@ -1,0 +1,111 @@
+Screen 1: Introduction
+Title: Is CompanyName the Right Fit for You?
+Content: Welcome! In just a moment, you'll discover everything you need to know about CompanyName.
+Time: 2-4 seconds
+Screen 2: Company Overview
+Title: Company Snapshot
+Content: Let’s take a quick look at CompanyName. Founded in [Founding Year], with headquarters located in [Headquarters Location], we proudly employ over [EmployeeCount] individuals in the [Industry] sector.
+Time: 6-8 seconds
+Screen 3: Employee Ratings
+Title: Employee Satisfaction Ratings
+Content: How do employees rate CompanyName? Here’s a glimpse: an overall rating of [Rating] based on [Total Reviews] reviews, highlighting our top-rated and bottom-rated aspects.
+Time: 7-9 seconds
+Screen 4: Salary Insights
+Title: Salary Overview for Popular Roles
+Content: Curious about compensation? Here are some of the top roles at CompanyName along with their salary ranges to give you an idea of what to expect.
+Time: 6-8 seconds
+Screen 5: Employee Benefits
+Title: Employee Benefits at a Glance
+Content: What perks do our employees enjoy? Here are the top four benefits that make working at CompanyName rewarding.
+Time: 5-7 seconds
+Screen 6: Distinctive Achievements
+Title: What Sets Us Apart?
+Content: CompanyName has been recognized with the ABECA (AmbitionBox Employee Choice Awards), showcasing our commitment to excellence and employee satisfaction.
+Time: 5-7 seconds
+Screen 7: Competitive Landscape
+Title: Competitor Benchmarking
+Content: How does CompanyName stack up against its competitors? Here’s a look at our top competitors and how we compare in terms of ratings and market position.
+Time: 4-6 seconds
+Screen 8: Closing Remarks
+Title: Thank You!
+Content: Thank you for exploring CompanyName with us. We appreciate your interest!
+Time: 2-3 seconds
+
+Objective
+We aim to create engaging company branding videos for paid employers on our platform. Your task is to develop a voice-over script using SSML (Speech Synthesis Markup Language) that will be converted into speech by a text-to-speech model.
+
+Guidelines:
+Write the script using SSML format.
+Provide distinct SSML scripts for each screen.
+Avoid repeating screen content verbatim; instead, craft a narrative that flows naturally as if delivered by a content creator.
+Ensure each script adheres to the specified time limits.
+Structure the scripts to allow seamless transitions between screens, maintaining a cohesive audio experience throughout.
+Use relevant data and replace it in script from api response given below.
+
+API response:
+{
+    "companyId" : 114,
+    "companyName": "Amazon",
+    "companyUrl": "https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/bG9jYWw6Ly8vbG9nb3Mvb3JpZ2luYWxzL2FtYXpvbi5qcGc.webp",
+    "foundedIn": "1994",
+    "headquarters": "Seattle",
+    "employeeCount": "10001-50000",
+    "industry": "E-Commerce",
+    "rating": 4.0,
+    "reviewCount": "50k+",
+    "topRatedCategory": "Work Culture",
+    "lowestRatedCategory": "Work-Life Balance",
+    "popularRoles": [
+      {
+        "compensation": "7 - 20",
+        "designation": "Software Development Engineer",
+        "experienceInYrs": "2-6"
+      },
+      {
+        "compensation": "6 - 18",
+        "designation": "Operations Manager",
+        "experienceInYrs": "4-10"
+      }
+    ],
+    "benefits": [
+      {
+        "benefit": "Health Insurance",
+        "benefitImage": "",
+        "reportedBy": "85%"
+      },
+      {
+        "benefit": "Stock Options",
+        "benefitImage": "",
+        "reportedBy": "80%"
+      }
+    ],
+    "abecaWinner": {
+      "year": "2024",
+      "category": [
+        "topRatedECommerceCompany"
+      ]
+    },
+    "competitors": [
+      {
+        "companyName": "Flipkart",
+        "companyId": 52,
+        "companyLogo": "",
+        "companyUrl" : "https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/bG9jYWw6Ly8vbG9nb3Mvb3JpZ2luYWxzL2ZsaXBrcGFydC5qcGc.webp",
+        "rating": 4.0
+      },
+      {
+        "companyName": "Google",
+        "companyId": 32,
+        "companyUrl" : "https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/bG9jYWw6Ly8vbG9nb3Mvb3JpZ2luYWxzL2dvb2dsZS5qcGc.webp",
+        "companyLogo": "",
+        "rating": 4.5
+      },
+      {
+        "companyName": "Nvidia",
+        "companyId": 32,
+        "companyUrl" : "https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/bG9jYWw6Ly8vbG9nb3Mvb3JpZ2luYWxzL25kaXZpYS5qcGc.webp",
+        "companyLogo": "",
+        "rating": 4.5
+      }
+    ]
+  }
